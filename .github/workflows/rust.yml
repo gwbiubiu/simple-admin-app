@@ -13,7 +13,7 @@ jobs:
       matrix:
         platform:
           - macos-latest
-          - ubuntu-20.04
+          - ubuntu-22.04
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -31,15 +31,10 @@ jobs:
         with:
           version: "latest"
       - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-20.04'
+        if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
-          # Upgrade GLIBC to 2.35
-          sudo apt-get install -y software-properties-common
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-          sudo apt-get update
-          sudo apt-get install -y libc6
       - name: build in release mode
         run: cargo build --release --verbose
       - uses: tauri-apps/tauri-action@v0
