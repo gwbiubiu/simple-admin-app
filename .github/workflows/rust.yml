@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-# This is the example from the readme.
-# On each push to the `release` branch it will create or update a GitHub release, build your app, and upload the artifacts to the release.
-
 jobs:
   publish-tauri:
     permissions:
@@ -30,8 +27,6 @@ jobs:
         with:
           toolchain: stable
           target: wasm32-unknown-unknown
-      - name: Install trunk
-        run: cargo install --locked trunk
       - uses: jetli/trunk-action@v0.1.0
         with:
           version: "latest"
@@ -40,6 +35,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+          # Upgrade GLIBC to 2.35
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo apt-get update
+          sudo apt-get install -y libc6
       - name: build in release mode
         run: cargo build --release --verbose
       - uses: tauri-apps/tauri-action@v0
