@@ -30,6 +30,8 @@ jobs:
         with:
           toolchain: stable
           target: wasm32-unknown-unknown
+      - name: Install trunk
+        run: cargo install --locked trunk
       - uses: jetli/trunk-action@v0.1.0
         with:
           # Optional version of trunk to install(eg. 'v0.8.1', 'latest')
