@@ -10,6 +10,9 @@
     "productName": "simple-admin-app",
     "version": "0.1.0"
   },
+  "updater": {
+    "active": false
+  },
   "tauri": {
     "allowlist": {
       "all": false,
